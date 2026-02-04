@@ -4,7 +4,7 @@
 
 Malaria remains one of the most significant public health challenges in Africa. This project analyzes malaria incidence and preventive strategies across all African countries from 2007 to 2017 using country-level longitudinal data. Each country is identified by an ISO-3 code and includes geographical attributes (latitude and longitude), reported malaria cases, and annual preventive measures.
 
-The project integrates **machine learning** and **GenAI-assisted analysis** to uncover trends, evaluate prevention effectiveness, and predict future malaria outbreaks. The ultimate goal is to provide actionable, data-driven insights for policymakers, NGOs, and health organizations.
+The project integrates machine learning to uncover trends, evaluate prevention effectiveness, and predict future malaria outbreaks. The ultimate goal is to provide actionable, data-driven insights for policymakers, NGOs, and health organizations.
 
 ---
 
