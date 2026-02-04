@@ -1,4 +1,4 @@
-# LLM.Project – Malaria Incidence and Prevention in Africa (2007–2017)
+# LLM Project – Malaria Incidence and Prevention in Africa 
 
 ## 1. Project Overview
 
