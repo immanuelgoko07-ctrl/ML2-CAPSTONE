@@ -4,7 +4,7 @@
 
 Malaria remains one of the most significant public health challenges in Africa. This project analyzes malaria incidence and preventive strategies across all African countries from 2007 to 2017 using country-level longitudinal data. Each country is identified by an ISO-3 code and includes geographical attributes (latitude and longitude), reported malaria cases, and annual preventive measures.
 
-The project integrates machine learning to uncover trends, evaluate prevention effectiveness, and predict future malaria outbreaks. The ultimate goal is to provide actionable, data-driven insights for policymakers, NGOs, and health organizations.
+The project integrates machine learning to uncover trends, evaluate prevention effectiveness, and predict future malaria outbreaks. The ultimate goal is to provide actionable, data-driven insights for policymakers, NGOs and health organizations.
 
 ---
 
@@ -120,21 +120,7 @@ To analyze patterns and trends in malaria incidence across African countries and
 
 ---
 
-## 7. Role of GenAI Intern(s)
-
-GenAI is integrated as a **research assistant** to:
-
-* Automate EDA summaries and visual interpretations
-* Suggest feature engineering ideas
-* Assist in model selection and hyperparameter tuning
-* Generate policy-oriented explanations of model results
-* Draft reports and executive summaries
-
-GenAI enhances productivity, interpretability, and communication of complex analytical findings.
-
----
-
-## 8. Results and Findings (Expected)
+## 7. Results and Findings (Expected)
 
 * Identification of countries with persistent malaria burden
 * Evidence that prevention measures (e.g., ITNs, IRS) significantly reduce cases
@@ -143,7 +129,7 @@ GenAI enhances productivity, interpretability, and communication of complex anal
 
 ---
 
-## 9. Policy Implications
+## 8. Policy Implications
 
 * Targeted intervention strategies for high-risk regions
 * Efficient allocation of malaria prevention resources
@@ -152,13 +138,13 @@ GenAI enhances productivity, interpretability, and communication of complex anal
 
 ---
 
-## 10. Conclusion
+## 9. Conclusion
 
-This project demonstrates how machine learning and GenAI can be combined to analyze complex public health data. By identifying trends, evaluating prevention strategies, and forecasting future malaria risks, the study provides valuable insights to support evidence-based decision-making in the fight against malaria in Africa.
+This project demonstrates how machine learning can be used to analyze complex public health data. By identifying trends, evaluating prevention strategies, and forecasting future malaria risks, the study provides valuable insights to support evidence-based decision-making in the fight against malaria in Africa.
 
 ---
 
-## 11. Tools & Technologies
+## 10. Tools & Technologies
 
 * Python (Pandas, NumPy, Scikit-learn)
 * XGBoost / LightGBM
