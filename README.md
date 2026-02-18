@@ -6,7 +6,7 @@ Malaria remains one of the most significant public health challenges in Africa. 
 
 The project integrates machine learning to uncover trends, evaluate prevention effectiveness, and predict future malaria outbreaks. The ultimate goal is to provide actionable, data-driven insights for policymakers, NGOs and health organizations.
 
----
+Images of malaria species will also be used to provide insight in understanding different types of malaria causes and help organizations combat malaria in a better way. 
 
 ## 2. Objectives
 
