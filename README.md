@@ -1,4 +1,4 @@
-# LLM Project – Malaria Incidence and Prevention in Africa 
+# MIPRE Project – Malaria Incidence and Prevention  
 
 ## 1. Project Overview
 
