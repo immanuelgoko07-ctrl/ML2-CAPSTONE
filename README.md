@@ -74,15 +74,6 @@ To analyze patterns and trends in malaria incidence across African countries and
 * Correlation analysis between prevention measures and malaria cases
 * Spatial visualization using latitude and longitude
 
-### 4.3 Feature Engineering
-
-* Lagged malaria cases (t−1, t−2)
-* Prevention intensity index (composite score)
-* Regional dummy variables
-* Interaction terms between geography and prevention measures
-
----
-
 ## 5. Machine Learning Models
 
 ### 5.1 Unsupervised Learning
