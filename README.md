@@ -6,7 +6,7 @@ This project investigates malaria trends across African countries from 2007–20
 
 1. Analyze malaria incidence patterns and prevention strategies.
 2. Predict future malaria outbreaks using historical country-level data.
-3. Classify Plasmodium species from images using deep learning.
+3. Classify mosquito species from images using deep learning.
 
 The project combines epidemiological data analysis with computer vision to provide both macro-level (country trends) and micro-level (parasite identification) insights.
 
@@ -86,7 +86,7 @@ Each observation represents a country-year record.
 
 ## Problem Statement
 
-Correct identification of Plasmodium species from blood smear images is critical for accurate malaria diagnosis and treatment planning.
+Correct identification of mosquito species is critical for accurate malaria treatment and prevention planning.
 
 ## Target Classes
 
@@ -94,12 +94,12 @@ Correct identification of Plasmodium species from blood smear images is critical
 * Plasmodium vivax
 * Plasmodium malariae
 * Plasmodium ovale
-* Plasmodium knowlesi (if available in dataset)
+* Plasmodium knowlesi
 
 ## Dataset
 
-* Microscopic blood smear images
-* Labeled by Plasmodium species
+* Real time mosquito images
+* Labeled by mosquito species
 * Train / Validation / Test split
 
 ## Image Preprocessing
@@ -176,6 +176,6 @@ Malaria-ML-Project/
 
 * Identification of key drivers of malaria incidence.
 * Forecasting model capable of predicting short-term outbreaks.
-* High-accuracy Plasmodium species classification model.
+* High-accuracy mosquito species classification model.
 * Integrated analytical framework combining epidemiology and computer vision.
 
