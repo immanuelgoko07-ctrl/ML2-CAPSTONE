@@ -6,7 +6,7 @@ This project investigates malaria trends across African countries from 2007–20
 
 1. Analyze malaria incidence patterns and prevention strategies.
 2. Predict future malaria outbreaks using historical country-level data.
-3. Classify Plasmodium species from microscopic blood smear images using deep learning.
+3. Classify Plasmodium species from images using deep learning.
 
 The project combines epidemiological data analysis with computer vision to provide both macro-level (country trends) and micro-level (parasite identification) insights.
 
