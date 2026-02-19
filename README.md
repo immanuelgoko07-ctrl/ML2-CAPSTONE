@@ -1,143 +1,181 @@
-# MIPRE Project – Malaria Incidence and Prevention  
+# MIPRE Project – Malaria Incidence and Prevention and Plasmodium Image Classification
 
-## 1. Project Overview
+## Project Overview
 
-Malaria remains one of the most significant public health challenges in Africa. This project analyzes malaria incidence and preventive strategies across all African countries from 2007 to 2017 using country-level longitudinal data. Each country is identified by an ISO-3 code and includes geographical attributes (latitude and longitude), reported malaria cases, and annual preventive measures.
+This project investigates malaria trends across African countries from 2007–2017 and applies machine learning techniques to:
 
-The project integrates machine learning to uncover trends, evaluate prevention effectiveness, and predict future malaria outbreaks. The ultimate goal is to provide actionable, data-driven insights for policymakers, NGOs and health organizations.
+1. Analyze malaria incidence patterns and prevention strategies.
+2. Predict future malaria outbreaks using historical country-level data.
+3. Classify Plasmodium species from microscopic blood smear images using deep learning.
 
-Images of malaria species will also be used to provide insight in understanding different types of malaria causes and help organizations combat malaria in a better way. 
-
-## 2. Objectives
-
-### Main Objective
-
-To analyze patterns and trends in malaria incidence across African countries and assess the effectiveness of preventive measures using machine learning techniques.
-
-### Specific Objectives
-
-* Analyze temporal and spatial trends in malaria cases (2007–2017)
-* Identify key preventive measures associated with reduced malaria incidence
-* Cluster countries based on malaria burden and intervention strategies
-* Build predictive models for future malaria outbreaks
-* Use GenAI to enhance feature engineering, interpretation, and reporting
+The project combines epidemiological data analysis with computer vision to provide both macro-level (country trends) and micro-level (parasite identification) insights.
 
 ---
 
-## 3. Dataset Description
+# Part 1: Malaria Incidence Analysis (2007–2017)
 
-### Data Scope
+## Dataset Description
 
-* **Coverage:** All African countries
-* **Period:** 2007–2017
-* **Frequency:** Annual
-* **Unit of Analysis:** Country-year
+The dataset includes:
 
-### Key Variables
+* ISO-3 country codes
+* Country names
+* Latitude and longitude
+* Annual reported malaria cases
+* Preventive measures (e.g., bed net coverage, spraying, treatment access)
+* Time range: 2007–2017
 
-**Identifiers**
+Each observation represents a country-year record.
 
-* ISO-3 Country Code
-* Country Name
+## Objectives
 
-**Geographical Variables**
+* Identify temporal and spatial trends in malaria cases.
+* Evaluate the effectiveness of prevention measures.
+* Cluster countries based on malaria burden.
+* Forecast short-term malaria incidence.
 
-* Latitude
-* Longitude
+## Methods Used
 
-**Outcome Variable**
+### 1. Data Preprocessing
 
-* Reported Malaria Cases
+* Missing value imputation
+* Outlier detection
+* Feature scaling
+* Log transformation of malaria cases
 
-**Preventive Measures (Examples)**
+### 2. Exploratory Data Analysis (EDA)
 
-* Insecticide-Treated Bed Net (ITN) coverage
-* Indoor Residual Spraying (IRS)
-* Access to antimalarial drugs
-* Public health campaign intensity
+* Trend visualization
+* Correlation analysis
+* Regional comparisons
+* Geographic mapping
 
----
+### 3. Machine Learning Models
 
-## 4. Methodology
+#### Regression Models
 
-### 4.1 Data Preprocessing
-
-* Handling missing values (interpolation / imputation)
-* Outlier detection (IQR and Z-score methods)
-* Log transformation of malaria cases to reduce skewness
-* Feature scaling for machine learning models
-
-### 4.2 Exploratory Data Analysis (EDA)
-
-* Trend analysis of malaria cases over time
-* Regional heatmaps of malaria incidence
-* Correlation analysis between prevention measures and malaria cases
-* Spatial visualization using latitude and longitude
-
-## 5. Machine Learning Models
-
-### 5.1 Unsupervised Learning
-
-* **K-Means Clustering**: Group countries by malaria burden and prevention strategies
-* **Hierarchical Clustering**: Identify regional similarities
-
-### 5.2 Supervised Learning
-
-**Regression Models**
-
-* Linear Regression (baseline)
+* Linear Regression
 * Random Forest Regressor
 * Gradient Boosting (XGBoost / LightGBM)
 
-**Classification Models (Optional)**
+#### Clustering
 
-* Binary classification: High-risk vs Low-risk malaria countries
+* K-Means Clustering
+* Hierarchical Clustering
 
-### 5.3 Model Evaluation
+#### Time-Series Forecasting
 
-* RMSE and MAE for regression
-* R² score
-* Cross-validation
-* Feature importance analysis
+* Rolling window validation
+* SARIMA or LSTM (for high-burden countries)
 
----
+## Training and Validation
 
-## 6. Time Series & Forecasting
+* Time-aware data split (Train: 2007–2014, Validation: 2015–2016, Test: 2017)
+* Cross-validation (rolling window for forecasting)
+* Hyperparameter tuning (GridSearchCV / RandomizedSearchCV)
 
-* Country-level malaria trends
-* Panel data forecasting approach
-* LSTM or SARIMA models for high-burden countries
-* Forecast malaria cases for 3–5 future years
+## Evaluation Metrics
 
----
-
-## 7. Results and Findings (Expected)
-
-* Identification of countries with persistent malaria burden
-* Evidence that prevention measures (e.g., ITNs, IRS) significantly reduce cases
-* Clusters of countries with similar malaria dynamics
-* Reliable short-term forecasts of malaria incidence
+* RMSE
+* MAE
+* R² Score
 
 ---
 
-## 8. Policy Implications
+# Part 2: Plasmodium Species Image Classification
 
-* Targeted intervention strategies for high-risk regions
-* Efficient allocation of malaria prevention resources
-* Data-driven monitoring and evaluation of malaria programs
-* Early warning systems for potential outbreaks
+## Problem Statement
+
+Correct identification of Plasmodium species from blood smear images is critical for accurate malaria diagnosis and treatment planning.
+
+## Target Classes
+
+* Plasmodium falciparum
+* Plasmodium vivax
+* Plasmodium malariae
+* Plasmodium ovale
+* Plasmodium knowlesi (if available in dataset)
+
+## Dataset
+
+* Microscopic blood smear images
+* Labeled by Plasmodium species
+* Train / Validation / Test split
+
+## Image Preprocessing
+
+* Image resizing
+* Normalization
+* Data augmentation (rotation, flipping, zooming)
+* Class balancing if necessary
+
+## Deep Learning Models
+
+* Convolutional Neural Networks (CNN)
+* Transfer learning (e.g., ResNet, EfficientNet)
+* Fine-tuning pretrained models
+
+## Training Strategy
+
+* Train-validation-test split (70/15/15 or 80/10/10)
+* Early stopping
+* Learning rate scheduling
+* Regularization (dropout, weight decay)
+
+## Evaluation Metrics
+
+* Accuracy
+* Precision
+* Recall
+* F1-Score
+* Confusion Matrix
+* ROC-AUC (if multi-class approach supported)
 
 ---
 
-## 9. Conclusion
+# Project Structure
 
-This project demonstrates how machine learning can be used to analyze complex public health data. By identifying trends, evaluating prevention strategies, and forecasting future malaria risks, the study provides valuable insights to support evidence-based decision-making in the fight against malaria in Africa.
+```
+Malaria-ML-Project/
+│
+├── data/
+│   ├── malaria_country_data.csv
+│   └── plasmodium_images/
+│
+├── notebooks/
+│   ├── EDA.ipynb
+│   ├── Regression_Modeling.ipynb
+│   ├── Forecasting.ipynb
+│   └── Image_Classification.ipynb
+│
+├── models/
+│   ├── regression_models/
+│   └── cnn_models/
+│
+├── results/
+│   ├── figures/
+│   └── reports/
+│
+└── README.md
+```
 
 ---
 
-## 10. Tools & Technologies
+# Tools and Technologies
 
-* Python (Pandas, NumPy, Scikit-learn)
+* Python
+* Pandas, NumPy
+* Scikit-learn
 * XGBoost / LightGBM
-* Geospatial visualization libraries
-* Time series models (SARIMA, LSTM)
+* TensorFlow / PyTorch
+* Matplotlib / Seaborn
+
+---
+
+# Expected Outcomes
+
+* Identification of key drivers of malaria incidence.
+* Forecasting model capable of predicting short-term outbreaks.
+* High-accuracy Plasmodium species classification model.
+* Integrated analytical framework combining epidemiology and computer vision.
+
