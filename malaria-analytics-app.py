@@ -30,8 +30,6 @@ def load_and_clean_data():
 
     return df
 
-df = load_and_clean_data()
-
 # -----------------------------
 # Routes
 # -----------------------------
@@ -99,6 +97,7 @@ def dashboard():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
 
 
