@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import plotly
 import json
 import os
 
@@ -140,5 +139,6 @@ def dashboard():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
