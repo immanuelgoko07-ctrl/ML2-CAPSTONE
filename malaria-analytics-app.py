@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import plotly.express as px
 import plotly
 import json
 
@@ -103,4 +102,5 @@ def dashboard():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
