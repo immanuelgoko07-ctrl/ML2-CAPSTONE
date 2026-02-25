@@ -133,7 +133,9 @@ def dashboard():
 # Run App
 # -------------------------------------------------
 
-if__name__ == "__main__":
+file "/mount/src/ml2-capstone/malaria-analytics-app.py"
+  if__name__ == "__main__":
+                          
     
 
 
@@ -143,5 +145,6 @@ if__name__ == "__main__":
 
 File "/mount/src/ml2-capstone/malaria-analytics-app.py", line 144
   
+
 
 
