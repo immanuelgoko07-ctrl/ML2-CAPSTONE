@@ -93,7 +93,7 @@ def dashboard():
 # Run App
 # -----------------------------
 
-if__name__ == "__main__":
+
 
 
 
