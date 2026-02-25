@@ -3,7 +3,6 @@ import numpy as np
 import json
 import os
 
-app = Flask(__name__)
 
 DATA_PATH = "malaria_country_data.csv"
 
@@ -139,6 +138,7 @@ def dashboard():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
