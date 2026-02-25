@@ -6,7 +6,6 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from tensorflow.keras.models import load_model
 from PIL import Image
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -222,4 +221,5 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
