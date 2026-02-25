@@ -133,8 +133,9 @@ def dashboard():
 # Run App
 # -------------------------------------------------
 
-  File "/mount/src/ml2-capstone/malaria-analytics-app.py", line 144
+  File "/mount/src/ml2-capstone/malaria-analytics-app.py"
   
+
 
 
 
