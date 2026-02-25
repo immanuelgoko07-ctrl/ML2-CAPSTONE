@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from prophet import Prophet
+from prophet import prophet
 import plotly.graph_objects as go
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
@@ -192,4 +192,5 @@ if uploaded_file:
     )
 
 else:
+
     st.info("Please upload a CSV file to begin forecasting.")
