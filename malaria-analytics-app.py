@@ -63,7 +63,6 @@ def load_and_clean_data():
 # Dashboard Route
 # -------------------------------------------------
 
-@app.route("/", methods=["GET", "POST"])
 def dashboard():
 
     countries = sorted(df["Country"].unique())
@@ -136,6 +135,7 @@ def dashboard():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
