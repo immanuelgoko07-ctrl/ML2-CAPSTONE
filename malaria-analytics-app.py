@@ -34,7 +34,6 @@ def load_and_clean_data():
 # Routes
 # -----------------------------
 
-@app.route("/", methods=["GET", "POST"])
 def dashboard():
     countries = sorted(df["Country"].unique())
     selected_country = request.form.get("country", countries[0])
@@ -97,6 +96,7 @@ def dashboard():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
 
 
