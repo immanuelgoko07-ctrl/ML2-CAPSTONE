@@ -24,8 +24,6 @@ def load_trained_model():
     model = load_model("mosquito_species_model.h5")
     return model
 
-model = load_trained_model()
-
 # ================================
 # CLASS LABELS (EDIT TO MATCH YOUR DATASET)
 # ================================
@@ -219,6 +217,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
