@@ -1,74 +1,116 @@
+from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
+import plotly.express as px
+import plotly
 import json
+import os
 
-# -----------------------------
-# Load and Clean Data
-# -----------------------------
+app = Flask(__name__)
+
+DATA_PATH = "malaria_country_data.csv"
+
+# -------------------------------------------------
+# Load & Clean Data
+# -------------------------------------------------
 
 def load_and_clean_data():
-    df = pd.read_csv("malaria_country_data.csv")
 
-    # Sort data
-    df = df.sort_values(["ISO3", "Year"])
+    if not os.path.exists(DATA_PATH):
+        raise FileNotFoundError("Dataset not found. Ensure malaria_country_data.csv exists.")
 
-    # Fill missing values per country
+    df = pd.read_csv(DATA_PATH)
+
+    required_columns = [
+        "ISO3", "Country", "Year",
+        "Malaria_Cases", "ITN_Coverage",
+        "IRS", "Treatment_Access"
+    ]
+
+    for col in required_columns:
+        if col not in df.columns:
+            raise ValueError(f"Missing required column: {col}")
+
+    df = df.sort_values(["ISO3", "Year"]).reset_index(drop=True)
+
+    # Fill missing numeric values per country
     numeric_cols = ["Malaria_Cases", "ITN_Coverage", "IRS", "Treatment_Access"]
-    df[numeric_cols] = df.groupby("ISO3")[numeric_cols].transform(lambda x: x.ffill().bfill())
+    df[numeric_cols] = df.groupby("ISO3")[numeric_cols].transform(
+        lambda x: x.ffill().bfill()
+    )
 
     # Remove outliers using IQR (per country)
-    def remove_outliers(group):
+    cleaned_groups = []
+
+    for country, group in df.groupby("ISO3"):
         Q1 = group["Malaria_Cases"].quantile(0.25)
         Q3 = group["Malaria_Cases"].quantile(0.75)
         IQR = Q3 - Q1
-        return group[
-            (group["Malaria_Cases"] >= (Q1 - 1.5 * IQR)) &
-            (group["Malaria_Cases"] <= (Q3 + 1.5 * IQR))
+
+        lower = Q1 - 1.5 * IQR
+        upper = Q3 + 1.5 * IQR
+
+        filtered = group[
+            (group["Malaria_Cases"] >= lower) &
+            (group["Malaria_Cases"] <= upper)
         ]
 
-    df = df.groupby("ISO3", group_keys=False).apply(remove_outliers)
+        cleaned_groups.append(filtered)
 
-    return df
+    df_clean = pd.concat(cleaned_groups).reset_index(drop=True)
 
-# -----------------------------
-# Routes
-# -----------------------------
+    return df_clean
 
+
+df = load_and_clean_data()
+
+
+# -------------------------------------------------
+# Dashboard Route
+# -------------------------------------------------
+
+@app.route("/", methods=["GET", "POST"])
 def dashboard():
+
     countries = sorted(df["Country"].unique())
-    selected_country = request.form.get("country", countries[0])
-    selected_year = request.form.get("year")
+    years = sorted(df["Year"].unique())
 
-    filtered_df = df[df["Country"] == selected_country]
+    selected_country = countries[0]
+    selected_year = years[-1]
 
-    # Trend Line Chart
+    if request.method == "POST":
+        selected_country = request.form.get("country", selected_country)
+        selected_year = int(request.form.get("year", selected_year))
+
+    # Filter by selected country
+    country_df = df[df["Country"] == selected_country]
+
+    # ---------------- Trend Chart ----------------
     fig_trend = px.line(
-        filtered_df,
+        country_df,
         x="Year",
         y="Malaria_Cases",
-        title=f"Malaria Cases Trend (2007–2017) - {selected_country}",
-        markers=True
+        markers=True,
+        title=f"Malaria Cases Trend (2007–2017) - {selected_country}"
     )
 
-    graph_trend = json.dumps(fig_trend, cls=plotly.utils.PlotlyJSONEncoder)
+    trend_graph = json.dumps(fig_trend, cls=plotly.utils.PlotlyJSONEncoder)
 
-    # Prevention vs Cases Scatter
+    # ---------------- Scatter Plot ----------------
     fig_scatter = px.scatter(
-        filtered_df,
+        country_df,
         x="ITN_Coverage",
         y="Malaria_Cases",
         size="Treatment_Access",
         color="Year",
-        title="ITN Coverage vs Malaria Cases"
+        title="ITN Coverage vs Malaria Cases",
+        hover_data=["Year"]
     )
 
-    graph_scatter = json.dumps(fig_scatter, cls=plotly.utils.PlotlyJSONEncoder)
+    scatter_graph = json.dumps(fig_scatter, cls=plotly.utils.PlotlyJSONEncoder)
 
-    # Choropleth Map for Selected Year
-    if selected_year:
-        year_df = df[df["Year"] == int(selected_year)]
-    else:
-        year_df = df[df["Year"] == 2017]
+    # ---------------- Map ----------------
+    year_df = df[df["Year"] == selected_year]
 
     fig_map = px.choropleth(
         year_df,
@@ -76,30 +118,27 @@ def dashboard():
         color="Malaria_Cases",
         hover_name="Country",
         color_continuous_scale="Reds",
-        title="Malaria Cases Across Africa"
+        projection="natural earth",
+        title=f"Malaria Cases Across Africa ({selected_year})"
     )
 
-    graph_map = json.dumps(fig_map, cls=plotly.utils.PlotlyJSONEncoder)
+    map_graph = json.dumps(fig_map, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template(
         "dashboard.html",
         countries=countries,
-        trend=graph_trend,
-        scatter=graph_scatter,
-        map=graph_map
+        years=years,
+        selected_country=selected_country,
+        selected_year=selected_year,
+        trend_graph=trend_graph,
+        scatter_graph=scatter_graph,
+        map_graph=map_graph
     )
 
-# -----------------------------
+
+# -------------------------------------------------
 # Run App
-# -----------------------------
+# -------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    app.run(debug=True)
