@@ -2,8 +2,6 @@ import pandas as pd
 import numpy as np
 import json
 
-app = Flask(__name__)
-
 # -----------------------------
 # Load and Clean Data
 # -----------------------------
@@ -101,6 +99,7 @@ def dashboard():
 if __name__ == "__main__":
 
     app.run(debug=True)
+
 
 
 
