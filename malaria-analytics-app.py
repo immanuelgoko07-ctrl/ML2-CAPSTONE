@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -102,4 +102,5 @@ def dashboard():
 # -----------------------------
 
 if __name__ == "__main__":
+
     app.run(debug=True)
