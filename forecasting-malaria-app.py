@@ -83,7 +83,7 @@ if uploaded_file:
     last_year = df['ds'].dt.year.max()
     periods = forecast_year - last_year
 
-    future = model.make_future_dataframe(periods=periods, freq='Y')
+    
     forecast = model.predict(future)
 
     # Merge predictions for evaluation
@@ -188,6 +188,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
