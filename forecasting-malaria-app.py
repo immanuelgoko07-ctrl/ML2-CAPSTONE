@@ -76,9 +76,7 @@ if uploaded_file:
 
     # Initialize Prophet
 
-        yearly_seasonality=seasonality,
-        changepoint_prior_scale=changepoint_scale
-    )
+
 
     model.fit(train)
 
@@ -191,6 +189,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
