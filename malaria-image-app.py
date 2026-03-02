@@ -151,7 +151,6 @@ elif page == "Model Architecture":
     """)
 
     st.subheader("Model Summary")
-    st.text(model.summary())
 
 # ================================
 # IMAGE PREDICTION
@@ -217,6 +216,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
