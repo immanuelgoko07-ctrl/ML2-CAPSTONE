@@ -87,7 +87,7 @@ if uploaded_file:
     
 
     # Merge predictions for evaluation
-    forecast_test = forecast[['ds', 'yhat']].merge(test, on='ds', how='inner')
+    
 
     if not forecast_test.empty:
         mae = mean_absolute_error(forecast_test['y'], forecast_test['yhat'])
@@ -188,6 +188,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
