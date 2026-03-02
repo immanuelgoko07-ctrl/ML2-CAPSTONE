@@ -97,7 +97,6 @@ if uploaded_file:
         st.subheader("Model Evaluation Metrics")
         col1, col2, col3 = st.columns(3)
         col1.metric("MAE", f"{mae:.2f}")
-        
         col3.metric("MAPE (%)", f"{mape:.2f}")
 
     # Forecast Plot
@@ -188,6 +187,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
