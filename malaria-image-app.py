@@ -175,7 +175,6 @@ elif page == "Make Prediction":
         img_array = np.expand_dims(img_array, axis=0)
 
         # Prediction
-        prediction = model.predict(img_array)
         probabilities = prediction[0]
 
         predicted_class = CLASS_NAMES[np.argmax(probabilities)]
@@ -216,6 +215,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
