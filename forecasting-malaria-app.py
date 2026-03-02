@@ -91,7 +91,7 @@ if uploaded_file:
 
     
  
- rmse = np.sqrt(mean_squared_error(forecast_test['y'], forecast_test['yhat']))
+ 
  mape = np.mean(np.abs((forecast_test['y'] - forecast_test['yhat']) / forecast_test['y'])) * 100
 
         st.subheader("Model Evaluation Metrics")
@@ -188,6 +188,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
