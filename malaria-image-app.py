@@ -186,7 +186,7 @@ elif page == "Make Prediction":
 
         
         
-        st.pyplot(fig)
+        
 
 # ================================
 # MODEL EVALUATION
@@ -208,6 +208,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
