@@ -75,7 +75,7 @@ if uploaded_file:
     test = df.iloc[split_index:]
 
     # Initialize Prophet
-    model = Prophet(
+
         yearly_seasonality=seasonality,
         changepoint_prior_scale=changepoint_scale
     )
@@ -191,6 +191,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
