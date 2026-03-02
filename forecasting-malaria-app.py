@@ -84,7 +84,7 @@ if uploaded_file:
     periods = forecast_year - last_year
 
     
-    forecast = model.predict(future)
+    
 
     # Merge predictions for evaluation
     forecast_test = forecast[['ds', 'yhat']].merge(test, on='ds', how='inner')
@@ -188,6 +188,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
