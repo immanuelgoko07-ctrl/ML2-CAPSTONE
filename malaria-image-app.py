@@ -182,7 +182,6 @@ elif page == "Make Prediction":
 
         prob_df = pd.DataFrame({
             "Species": CLASS_NAMES,
-            "Probability": probabilities
         })
 
         fig, ax = plt.subplots()
@@ -209,6 +208,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
