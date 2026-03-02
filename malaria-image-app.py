@@ -175,8 +175,7 @@ elif page == "Make Prediction":
         img_array = np.expand_dims(img_array, axis=0)
 
 
-        #Prediction
-        confidence = np.max(probabilities) * 100
+    
 
         st.success(f"Predicted Species: {predicted_class}")
         st.write(f"Confidence: {confidence:.2f}%")
@@ -213,6 +212,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
