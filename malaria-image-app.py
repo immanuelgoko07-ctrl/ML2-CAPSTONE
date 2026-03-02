@@ -177,8 +177,6 @@ elif page == "Make Prediction":
 
     
 
-        st.write(f"Confidence: {confidence:.2f}%")
-
         # Probability Visualization
         st.subheader("Prediction Probabilities")
 
@@ -211,6 +209,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
