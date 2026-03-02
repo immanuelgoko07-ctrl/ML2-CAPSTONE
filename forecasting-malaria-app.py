@@ -78,7 +78,6 @@ if uploaded_file:
 
 
 
-    model.fit(train)
 
     # Forecast until chosen year
     last_year = df['ds'].dt.year.max()
@@ -189,6 +188,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
