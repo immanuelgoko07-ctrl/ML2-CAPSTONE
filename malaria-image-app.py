@@ -184,7 +184,7 @@ elif page == "Make Prediction":
             "Species": CLASS_NAMES,
         })
 
-        fig, ax = plt.subplots()
+        
         sns.barplot(x="Probability", y="Species", data=prob_df, ax=ax)
         st.pyplot(fig)
 
@@ -208,6 +208,7 @@ elif page == "Model Evaluation":
     To display real evaluation metrics, connect this section 
     to your saved training history or evaluation results.
     """)
+
 
 
 
