@@ -87,8 +87,6 @@ if uploaded_file:
     
 
     # Merge predictions for evaluation
-        col1, col2, col3 = st.columns(3)
-        col1.metric("MAE", f"{mae:.2f}")
         
 
     # Forecast Plot
@@ -179,6 +177,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
