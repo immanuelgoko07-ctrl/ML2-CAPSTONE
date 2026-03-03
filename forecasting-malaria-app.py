@@ -100,7 +100,6 @@ if uploaded_file:
 
     # Download Forecast
     st.subheader("Download Forecast Data")
-    forecast_download = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
     st.download_button(
         label="Download Forecast CSV",
         data=forecast_download.to_csv(index=False),
@@ -111,6 +110,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
