@@ -93,24 +93,6 @@ if uploaded_file:
     st.subheader("Forecast Visualization")
 
     # Actual vs Predicted
-    
-
-        
-
-       
-
-        fig2.add_trace(go.Scatter(
-            x=forecast_test['ds'],
-            y=forecast_test['yhat'],
-            mode='lines+markers',
-            name='Predicted'
-        ))
-
-        fig2.update_layout(
-            title="Actual vs Predicted (Test Data)",
-            xaxis_title="Year",
-            yaxis_title="Malaria Cases"
-        )
 
         st.plotly_chart(fig2, use_container_width=True)
 
@@ -132,6 +114,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
