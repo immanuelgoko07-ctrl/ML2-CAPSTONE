@@ -87,13 +87,6 @@ if uploaded_file:
     
 
     # Merge predictions for evaluation
-    
-
-    
- 
- 
-
-        st.subheader("Model Evaluation Metrics")
         col1, col2, col3 = st.columns(3)
         col1.metric("MAE", f"{mae:.2f}")
         
@@ -186,6 +179,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
