@@ -100,15 +100,12 @@ if uploaded_file:
 
     # Download Forecast
     st.subheader("Download Forecast Data")
-    st.download_button(
-        label="Download Forecast CSV",
-        file_name="malaria_forecast.csv",
-        mime="text/csv"
-    )
+    
 
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
