@@ -93,8 +93,7 @@ if uploaded_file:
     st.subheader("Forecast Visualization")
 
     # Actual vs Predicted
-    if not forecast_test.empty:
-        st.subheader("Actual vs Predicted Comparison")
+    
 
         fig2 = go.Figure()
 
@@ -138,6 +137,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
