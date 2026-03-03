@@ -92,8 +92,6 @@ if uploaded_file:
     # Forecast Plot
     st.subheader("Forecast Visualization")
 
-    st.plotly_chart(fig, use_container_width=True)
-
     # Actual vs Predicted
     if not forecast_test.empty:
         st.subheader("Actual vs Predicted Comparison")
@@ -140,6 +138,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
