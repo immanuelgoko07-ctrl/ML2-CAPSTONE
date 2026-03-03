@@ -92,23 +92,7 @@ if uploaded_file:
     # Forecast Plot
     st.subheader("Forecast Visualization")
 
-
-    fig.add_trace(go.Scatter(
-        x=forecast['ds'], y=forecast['yhat_upper'],
-        fill=None,
-        mode='lines',
-        line_color='lightgrey',
-        name='Upper Confidence'
-    ))
-
-    fig.add_trace(go.Scatter(
-        x=forecast['ds'], y=forecast['yhat_lower'],
-        fill='tonexty',
-        mode='lines',
-        line_color='lightgrey',
-        name='Lower Confidence'
-    ))
-
+   
     fig.update_layout(
         title="Malaria Forecast Until {}".format(forecast_year),
         xaxis_title="Year",
@@ -164,6 +148,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
