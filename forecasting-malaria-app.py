@@ -95,7 +95,7 @@ if uploaded_file:
     # Actual vs Predicted
     
 
-        fig2 = go.Figure()
+        
 
         fig2.add_trace(go.Scatter(
             x=forecast_test['ds'],
@@ -137,6 +137,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
