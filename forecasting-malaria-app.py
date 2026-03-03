@@ -92,13 +92,6 @@ if uploaded_file:
     # Forecast Plot
     st.subheader("Forecast Visualization")
 
-
-    
-        x=df['ds'], y=df['y'],
-        mode='lines',
-        name='Historical Data'
-    ))
-
     fig.add_trace(go.Scatter(
         x=forecast['ds'], y=forecast['yhat'],
         mode='lines',
@@ -176,6 +169,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
