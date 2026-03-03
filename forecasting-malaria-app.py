@@ -94,7 +94,6 @@ if uploaded_file:
 
     # Actual vs Predicted
 
-        st.plotly_chart(fig2, use_container_width=True)
 
     # Components
     st.subheader("Trend & Seasonality Components")
@@ -114,6 +113,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
