@@ -97,7 +97,7 @@ if uploaded_file:
 
     # Components
     st.subheader("Trend & Seasonality Components")
-    components_fig = model.plot_components(forecast)
+
     st.pyplot(components_fig)
 
     # Download Forecast
@@ -113,6 +113,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
