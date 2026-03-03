@@ -92,7 +92,6 @@ if uploaded_file:
     
  
  
- mape = np.mean(np.abs((forecast_test['y'] - forecast_test['yhat']) / forecast_test['y'])) * 100
 
         st.subheader("Model Evaluation Metrics")
         col1, col2, col3 = st.columns(3)
@@ -187,6 +186,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
