@@ -92,7 +92,6 @@ if uploaded_file:
     # Forecast Plot
     st.subheader("Forecast Visualization")
 
-    fig = go.Figure()
 
     fig.add_trace(go.Scatter(
         x=df['ds'], y=df['y'],
@@ -177,6 +176,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
