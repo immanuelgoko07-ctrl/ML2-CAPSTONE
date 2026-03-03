@@ -92,14 +92,6 @@ if uploaded_file:
     # Forecast Plot
     st.subheader("Forecast Visualization")
 
-   
-    fig.update_layout(
-        title="Malaria Forecast Until {}".format(forecast_year),
-        xaxis_title="Year",
-        yaxis_title="Malaria Cases",
-        hovermode="x unified"
-    )
-
     st.plotly_chart(fig, use_container_width=True)
 
     # Actual vs Predicted
@@ -148,6 +140,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
