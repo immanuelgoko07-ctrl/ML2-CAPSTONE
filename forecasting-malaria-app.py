@@ -98,8 +98,6 @@ if uploaded_file:
     # Components
     st.subheader("Trend & Seasonality Components")
 
-    st.pyplot(components_fig)
-
     # Download Forecast
     st.subheader("Download Forecast Data")
     forecast_download = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
@@ -113,6 +111,7 @@ if uploaded_file:
 else:
 
     st.info("Please upload a CSV file to begin forecasting.")
+
 
 
 
