@@ -1,27 +1,33 @@
 # ==========================================
-# Malaria Mosquito Species Classification App
+# Malaria Mosquito Species Classification
 # ==========================================
 
 import streamlit as st
 import numpy as np
-
+import tensorflow as tf
+from tensorflow.keras.models import load_model
 from PIL import Image
+import os
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # ==========================================
 # PAGE CONFIG
 # ==========================================
 
 st.set_page_config(
-    page_title="Malaria Mosquito Species Classifier",
+    page_title="Mosquito Species Classifier",
     layout="wide"
 )
 
 st.title("🦟 Malaria Mosquito Species Classification System")
 
 # ==========================================
-# CLASS LABELS (EDIT TO MATCH YOUR TRAINING ORDER)
+# CONFIGURATION
 # ==========================================
+
+MODEL_PATH = "mosquito_species_model.h5"  # Change if needed
+IMAGE_SIZE = 224  # Change to match training size
 
 CLASS_NAMES = [
     "Aedes aegypti",
@@ -32,54 +38,73 @@ CLASS_NAMES = [
     "Culex pipiens"
 ]
 
-IMAGE_SIZE = 224  # Change if your model uses different size
-
-
 # ==========================================
-# LOAD MODEL WITH ERROR HANDLING
+# ROBUST MODEL LOADER
 # ==========================================
-@st.cache_resource
-def load_trained_model():
+
+def load_trained_model(model_path: str):
+    """
+    Loads the trained Keras model safely.
+    Returns:
+        model if successful
+        None if failed
+    """
+
+    # Check if file exists
+    if not os.path.exists(model_path):
+        st.error(f"❌ Model file not found at path: {model_path}")
+        return None
+
     try:
-        model = load_model("mosquito_species_model.h5")
+        model = load_model(model_path, compile=False)
+        st.success("✅ Model loaded successfully.")
         return model
+
     except Exception as e:
-        st.error("❌ Model failed to load.")
+        st.error("❌ Error while loading the model.")
         st.error(str(e))
         return None
 
-model = load_trained_model()
 
+# Cache model so it loads once
+@st.cache_resource
+def get_model():
+    return load_trained_model(MODEL_PATH)
+
+
+model = get_model()
+
+# Stop app if model failed
 if model is None:
     st.stop()
 
-st.success("✅ Model loaded successfully.")
-
-
 # ==========================================
-# SIDEBAR
+# SIDEBAR NAVIGATION
 # ==========================================
 
 menu = st.sidebar.selectbox(
     "Navigation",
-    ["Home", "Upload & Predict", "Model Info"]
+    ["Home", "Upload & Predict", "Model Details"]
 )
 
 # ==========================================
-# HOME PAGE
+# HOME
 # ==========================================
 
 if menu == "Home":
 
     st.markdown("""
-    This system classifies mosquito images into 6 species relevant to malaria and vector surveillance.
+    ### System Overview
 
-    ### Pipeline:
-    Image → Resize → Normalize → CNN → Softmax → Species Prediction
+    This AI system classifies mosquito images into 6 species relevant to malaria research and vector surveillance.
+
+    **Pipeline:**
+
+    Image → Resize → Normalize → CNN → Softmax → Prediction
     """)
 
 # ==========================================
-# UPLOAD & PREDICT PAGE
+# PREDICTION PAGE
 # ==========================================
 
 elif menu == "Upload & Predict":
@@ -87,28 +112,26 @@ elif menu == "Upload & Predict":
     st.header("Upload Mosquito Image")
 
     uploaded_file = st.file_uploader(
-        "Choose an image...",
+        "Choose an image",
         type=["jpg", "jpeg", "png"]
     )
 
     if uploaded_file is not None:
 
-        # Display image
         image = Image.open(uploaded_file).convert("RGB")
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
-        # Preprocess
+        # Preprocessing
         img = image.resize((IMAGE_SIZE, IMAGE_SIZE))
-        img_array = np.array(img)
-        img_array = img_array / 255.0
+        img_array = np.array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
-        st.write("Image shape after preprocessing:", img_array.shape)
+        st.write("Processed Image Shape:", img_array.shape)
 
-        # Predict
+        # Prediction
         try:
-            prediction = model.predict(img_array)
-            probabilities = prediction[0]
+            predictions = model.predict(img_array)
+            probabilities = predictions[0]
 
             predicted_index = np.argmax(probabilities)
             predicted_species = CLASS_NAMES[predicted_index]
@@ -117,9 +140,7 @@ elif menu == "Upload & Predict":
             st.success(f"🎯 Predicted Species: {predicted_species}")
             st.write(f"Confidence: {confidence:.2f}%")
 
-            # Probability Chart
-            st.subheader("Prediction Probabilities")
-
+            # Probability chart
             prob_df = pd.DataFrame({
                 "Species": CLASS_NAMES,
                 "Probability": probabilities
@@ -136,23 +157,18 @@ elif menu == "Upload & Predict":
             st.error(str(e))
 
 # ==========================================
-# MODEL INFO PAGE
+# MODEL DETAILS
 # ==========================================
 
-elif menu == "Model Info":
+elif menu == "Model Details":
 
     st.header("Model Architecture Summary")
 
     try:
-        stringlist = []
-        model.summary(print_fn=lambda x: stringlist.append(x))
-        summary_string = "\n".join(stringlist)
-        st.text(summary_string)
+        summary_lines = []
+        model.summary(print_fn=lambda x: summary_lines.append(x))
+        summary_text = "\n".join(summary_lines)
+        st.text(summary_text)
     except Exception as e:
-        st.error("Could not display model summary.")
+        st.error("Unable to display model summary.")
         st.error(str(e))
-
-
-
-
-
