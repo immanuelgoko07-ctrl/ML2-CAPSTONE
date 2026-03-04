@@ -38,7 +38,7 @@ IMAGE_SIZE = 224  # Change if your model uses different size
 # ==========================================
 # LOAD MODEL WITH ERROR HANDLING
 # ==========================================
-
+load_model = image
 @st.cache_resource
 def load_trained_model():
     try:
@@ -152,6 +152,7 @@ elif menu == "Model Info":
     except Exception as e:
         st.error("Could not display model summary.")
         st.error(str(e))
+
 
 
 
