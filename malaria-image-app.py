@@ -7,7 +7,6 @@ import numpy as np
 
 from PIL import Image
 import pandas as pd
-import matplotlib.pyplot as plt
 
 # ==========================================
 # PAGE CONFIG
@@ -153,5 +152,6 @@ elif menu == "Model Info":
     except Exception as e:
         st.error("Could not display model summary.")
         st.error(str(e))
+
 
 
