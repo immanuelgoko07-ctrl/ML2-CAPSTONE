@@ -4,7 +4,6 @@
 
 import streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model
 from PIL import Image
 import os
 import pandas as pd
@@ -171,4 +170,5 @@ elif menu == "Model Details":
     except Exception as e:
         st.error("Unable to display model summary.")
         st.error(str(e))
+
 
