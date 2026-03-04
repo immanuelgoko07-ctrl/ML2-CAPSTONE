@@ -1,226 +1,156 @@
-# ================================
-# Mosquito Species Classification
-# System Architecture Web App
-# ================================
+# ==========================================
+# Malaria Mosquito Species Classification App
+# ==========================================
 
 import streamlit as st
 import numpy as np
-import pandas as pd
+import tensorflow as tf
+from tensorflow.keras.models import load_model
 from PIL import Image
+import pandas as pd
+import matplotlib.pyplot as plt
 
-# ================================
+# ==========================================
 # PAGE CONFIG
-# ================================
+# ==========================================
+
 st.set_page_config(
-    page_title="Mosquito Species Classification System",
+    page_title="Malaria Mosquito Species Classifier",
     layout="wide"
 )
 
-# ================================
-# LOAD MODEL
-# ================================
-@st.cache_resource
-def load_trained_model():
-    model = load_model("mosquito_species_model.h5")
-    return model
+st.title("🦟 Malaria Mosquito Species Classification System")
 
-# ================================
-# CLASS LABELS (EDIT TO MATCH YOUR DATASET)
-# ================================
+# ==========================================
+# CLASS LABELS (EDIT TO MATCH YOUR TRAINING ORDER)
+# ==========================================
+
 CLASS_NAMES = [
-    "Species_1",
-    "Species_2",
-    "Species_3",
-    "Species_4",
-    "Species_5",
-    "Species_6"
+    "Aedes aegypti",
+    "Anopheles gambiae",
+    "Culex quinquefasciatus",
+    "Aedes albopictus",
+    "Anopheles arabiensis",
+    "Culex pipiens"
 ]
 
-# ================================
-# SIDEBAR NAVIGATION
-# ================================
-st.sidebar.title("Navigation")
-page = st.sidebar.radio(
-    "Go to",
-    [
-        "System Overview",
-        "Data Preparation",
-        "Model Architecture",
-        "Make Prediction",
-        "Model Evaluation"
-    ]
+IMAGE_SIZE = 224  # Change if your model uses different size
+
+
+# ==========================================
+# LOAD MODEL WITH ERROR HANDLING
+# ==========================================
+
+@st.cache_resource
+def load_trained_model():
+    try:
+        model = load_model("mosquito_species_model.h5")
+        return model
+    except Exception as e:
+        st.error("❌ Model failed to load.")
+        st.error(str(e))
+        return None
+
+model = load_trained_model()
+
+if model is None:
+    st.stop()
+
+st.success("✅ Model loaded successfully.")
+
+
+# ==========================================
+# SIDEBAR
+# ==========================================
+
+menu = st.sidebar.selectbox(
+    "Navigation",
+    ["Home", "Upload & Predict", "Model Info"]
 )
 
-# ================================
-# SYSTEM OVERVIEW
-# ================================
-if page == "System Overview":
+# ==========================================
+# HOME PAGE
+# ==========================================
 
-    st.title("🦟 Mosquito Species Image Classification System")
-
-    st.markdown("""
-    ## Project Objective
-    This system performs **multi-class classification** of mosquito images 
-    into **6 distinct species** using a deep learning model built in Python.
-
-    ### High-Level Pipeline
-    1. Image Input
-    2. Preprocessing & Augmentation
-    3. CNN Backbone Feature Extraction
-    4. Classification Head
-    5. Softmax Probability Output
-    """)
-
-    st.markdown("---")
-
-    st.subheader("System Architecture Flow")
-
-    st.code("""
-    Raw Image
-        ↓
-    Resize & Normalize
-        ↓
-    Convolutional Neural Network (Backbone)
-        ↓
-    Global Average Pooling
-        ↓
-    Dense Layers
-        ↓
-    Softmax (6 Classes)
-        ↓
-    Predicted Species
-    """)
-
-# ================================
-# DATA PREPARATION
-# ================================
-elif page == "Data Preparation":
-
-    st.title("📊 Data Preparation Pipeline")
+if menu == "Home":
 
     st.markdown("""
-    ### Dataset Structure
-    - 6 folders representing 6 mosquito species
-    - Images resized to 224x224
-    - Normalized pixel values (0–1)
+    This system classifies mosquito images into 6 species relevant to malaria and vector surveillance.
 
-    ### Preprocessing Steps
-    - Resize images
-    - Normalize pixel values
-    - Train/Validation/Test split
-    - Data augmentation:
-        - Rotation
-        - Horizontal flipping
-        - Zoom
-        - Brightness adjustment
+    ### Pipeline:
+    Image → Resize → Normalize → CNN → Softmax → Species Prediction
     """)
 
-    st.subheader("Why Augmentation?")
-    st.write("""
-    Data augmentation increases model generalization and reduces overfitting 
-    by exposing the network to varied image transformations.
-    """)
+# ==========================================
+# UPLOAD & PREDICT PAGE
+# ==========================================
 
-# ================================
-# MODEL ARCHITECTURE
-# ================================
-elif page == "Model Architecture":
+elif menu == "Upload & Predict":
 
-    st.title("🧠 Deep Learning Architecture")
-
-    st.markdown("""
-    ### Backbone Network
-    The model uses a Convolutional Neural Network (CNN) to extract 
-    spatial features from mosquito images.
-
-    Core Components:
-    - Convolution Layers
-    - ReLU Activation
-    - Max Pooling
-    - Batch Normalization
-    - Dropout Regularization
-    """)
-
-    st.subheader("Classification Head")
-
-    st.markdown("""
-    - Global Average Pooling
-    - Fully Connected Dense Layer
-    - Output Layer (6 neurons)
-    - Softmax Activation
-    """)
-
-    st.subheader("Model Summary")
-
-# ================================
-# IMAGE PREDICTION
-# ================================
-elif page == "Make Prediction":
-
-    st.title("🔍 Upload Image for Prediction")
+    st.header("Upload Mosquito Image")
 
     uploaded_file = st.file_uploader(
-        "Upload a mosquito image",
+        "Choose an image...",
         type=["jpg", "jpeg", "png"]
     )
 
     if uploaded_file is not None:
 
+        # Display image
         image = Image.open(uploaded_file).convert("RGB")
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
-        # Preprocess image
-        img = image.resize((224, 224))
-        img_array = np.array(img) / 255.0
+        # Preprocess
+        img = image.resize((IMAGE_SIZE, IMAGE_SIZE))
+        img_array = np.array(img)
+        img_array = img_array / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
+        st.write("Image shape after preprocessing:", img_array.shape)
 
-    
+        # Predict
+        try:
+            prediction = model.predict(img_array)
+            probabilities = prediction[0]
 
-        # Probability Visualization
-        st.subheader("Prediction Probabilities")
+            predicted_index = np.argmax(probabilities)
+            predicted_species = CLASS_NAMES[predicted_index]
+            confidence = probabilities[predicted_index] * 100
 
-        prob_df = pd.DataFrame({
-            "Species": CLASS_NAMES,
-        })
+            st.success(f"🎯 Predicted Species: {predicted_species}")
+            st.write(f"Confidence: {confidence:.2f}%")
 
-        
-        
-        
+            # Probability Chart
+            st.subheader("Prediction Probabilities")
 
-# ================================
-# MODEL EVALUATION
-# ================================
-elif page == "Model Evaluation":
+            prob_df = pd.DataFrame({
+                "Species": CLASS_NAMES,
+                "Probability": probabilities
+            })
 
-    st.title("📈 Model Performance Metrics")
+            fig, ax = plt.subplots()
+            ax.barh(prob_df["Species"], prob_df["Probability"])
+            ax.set_xlabel("Probability")
+            ax.set_xlim([0, 1])
+            st.pyplot(fig)
 
-    st.markdown("""
-    Evaluation metrics used:
-    - Accuracy
-    - Precision
-    - Recall
-    - F1-Score
-    - Confusion Matrix
-    """)
+        except Exception as e:
+            st.error("❌ Prediction failed.")
+            st.error(str(e))
 
-    st.info("""
-    To display real evaluation metrics, connect this section 
-    to your saved training history or evaluation results.
-    """)
+# ==========================================
+# MODEL INFO PAGE
+# ==========================================
 
+elif menu == "Model Info":
 
+    st.header("Model Architecture Summary")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    try:
+        stringlist = []
+        model.summary(print_fn=lambda x: stringlist.append(x))
+        summary_string = "\n".join(stringlist)
+        st.text(summary_string)
+    except Exception as e:
+        st.error("Could not display model summary.")
+        st.error(str(e))
