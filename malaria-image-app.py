@@ -7,6 +7,7 @@ import numpy as np
 from PIL import Image
 import os
 import pandas as pd
+import tensorflow as tf
 
 # ==========================================
 # PAGE CONFIG
@@ -169,6 +170,7 @@ elif menu == "Model Details":
     except Exception as e:
         st.error("Unable to display model summary.")
         st.error(str(e))
+
 
 
 
