@@ -7,7 +7,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from PIL import Image
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 # ================================
@@ -222,4 +221,71 @@ elif page == "Model Evaluation":
     to your saved training history or evaluation results.
     """)
 
+
+
+
+import streamlit as st
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
+import numpy as np
+from PIL import Image
+
+# ---------------------------
+# App Configuration
+# ---------------------------
+st.set_page_config(
+    page_title="Mosquito Species Classification",
+    page_icon="🦟",
+    layout="centered"
+)
+
+st.title("🦟 Mosquito Species Classification App")
+st.write("Upload an image of a mosquito and the app will predict its species.")
+
+# ---------------------------
+# Load the trained model
+# ---------------------------
+@st.cache_resource
+def load_mosquito_model(model_path):
+    model = load_model(model_path)
+    return model
+
+model_path = "mosquito_species_model.h5"
+model = load_mosquito_model(model_path)
+
+# ---------------------------
+# Image upload
+# ---------------------------
+uploaded_file = st.file_uploader("Choose a mosquito image...", type=["jpg", "jpeg", "png"])
+
+# ---------------------------
+# Prediction function
+# ---------------------------
+def predict_species(img, model):
+    img = img.resize((224, 224))  # Resize to match model input
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+    img_array = img_array / 255.0  # Normalize if model trained on 0-1 range
+
+    predictions = model.predict(img_array)
+    class_index = np.argmax(predictions, axis=1)[0]
+    
+    # Replace with your actual class labels
+    class_labels = ["Aedes", "Anopheles", "Culex"]
+    predicted_class = class_labels[class_index]
+    confidence = predictions[0][class_index]
+    
+    return predicted_class, confidence
+
+# ---------------------------
+# Display prediction
+# ---------------------------
+if uploaded_file is not None:
+    img = Image.open(uploaded_file).convert('RGB')
+    st.image(img, caption="Uploaded Image", use_column_width=True)
+    st.write("Classifying...")
+
+    species, confidence = predict_species(img, model)
+    st.success(f"Predicted Species: {species}")
+    st.info(f"Confidence: {confidence*100:.2f}%")
 
