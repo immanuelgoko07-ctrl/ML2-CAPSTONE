@@ -24,8 +24,6 @@ def load_trained_model():
     model = load_model("mosquito_species_model.h5")
     return model
 
-model = load_trained_model()
-
 # ================================
 # CLASS LABELS (EDIT TO MATCH YOUR DATASET)
 # ================================
@@ -287,5 +285,6 @@ if uploaded_file is not None:
     species, confidence = predict_species(img, model)
     st.success(f"Predicted Species: {species}")
     st.info(f"Confidence: {confidence*100:.2f}%")
+
 
 
