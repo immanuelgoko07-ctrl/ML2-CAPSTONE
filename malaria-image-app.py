@@ -151,7 +151,6 @@ elif page == "Model Architecture":
     """)
 
     st.subheader("Model Summary")
-    st.text(model.summary())
 
 # ================================
 # IMAGE PREDICTION
@@ -278,6 +277,7 @@ if uploaded_file is not None:
     img = Image.open(uploaded_file).convert('RGB')
     st.image(img, caption="Uploaded Image", use_column_width=True)
     st.write("Classifying...")
+
 
 
 
