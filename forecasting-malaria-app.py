@@ -157,7 +157,6 @@ if uploaded_file is not None:
 
         # Visualizations
         st.subheader("Forecast Plot")
-        st.pyplot(fig1)
 
         st.subheader("Components Plot")
         fig2 = model.plot_components(forecast)
@@ -231,6 +230,7 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to get started.")
+
 
 
 
