@@ -222,7 +222,6 @@ elif page == "Model Evaluation":
 
 
 import streamlit as st
-from tensorflow.keras.preprocessing import image
 import numpy as np
 from PIL import Image
 
@@ -284,6 +283,7 @@ if uploaded_file is not None:
     species, confidence = predict_species(img, model)
     st.success(f"Predicted Species: {species}")
     st.info(f"Confidence: {confidence*100:.2f}%")
+
 
 
 
