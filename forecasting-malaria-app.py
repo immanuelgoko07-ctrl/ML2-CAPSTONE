@@ -113,7 +113,6 @@ else:
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from prophet import Prophet
 import joblib
 import os
@@ -244,6 +243,7 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to get started.")
+
 
 
 
