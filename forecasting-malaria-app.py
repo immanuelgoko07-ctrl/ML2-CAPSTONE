@@ -147,7 +147,6 @@ if uploaded_file is not None:
             model = joblib.load(model_file)
             st.success("Loaded pre-trained Prophet model!")
         else:
-            model.fit(df)
             joblib.dump(model, model_file)
             st.success("Trained new Prophet model!")
 
@@ -238,6 +237,7 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to get started.")
+
 
 
 
