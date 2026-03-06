@@ -279,9 +279,9 @@ if uploaded_file is not None:
     st.image(img, caption="Uploaded Image", use_column_width=True)
     st.write("Classifying...")
 
-    species, confidence = predict_species(img, model)
     st.success(f"Predicted Species: {species}")
     st.info(f"Confidence: {confidence*100:.2f}%")
+
 
 
 
