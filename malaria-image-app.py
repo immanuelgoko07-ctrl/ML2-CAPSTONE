@@ -7,7 +7,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from PIL import Image
-import seaborn as sns
 
 # ================================
 # PAGE CONFIG
@@ -288,4 +287,5 @@ if uploaded_file is not None:
     species, confidence = predict_species(img, model)
     st.success(f"Predicted Species: {species}")
     st.info(f"Confidence: {confidence*100:.2f}%")
+
 
