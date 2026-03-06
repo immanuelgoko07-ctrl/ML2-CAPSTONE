@@ -246,7 +246,6 @@ def load_mosquito_model(model_path):
     return model
 
 model_path = "mosquito_species_model.h5"
-model = load_mosquito_model(model_path)
 
 # ---------------------------
 # Image upload
@@ -283,6 +282,7 @@ if uploaded_file is not None:
     species, confidence = predict_species(img, model)
     st.success(f"Predicted Species: {species}")
     st.info(f"Confidence: {confidence*100:.2f}%")
+
 
 
 
