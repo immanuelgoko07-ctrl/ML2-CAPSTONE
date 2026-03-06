@@ -159,7 +159,6 @@ if uploaded_file is not None:
         st.subheader("Forecast Plot")
 
         st.subheader("Components Plot")
-        st.pyplot(fig2)
 
     # -----------------------------
     # SARIMA Forecast
@@ -229,6 +228,7 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to get started.")
+
 
 
 
