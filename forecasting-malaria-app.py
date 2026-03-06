@@ -154,7 +154,6 @@ if uploaded_file is not None:
         periods = st.sidebar.number_input("Forecast periods (days)", min_value=1, max_value=365, value=30)
 
         st.subheader("Forecasted Data")
-        st.dataframe(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(periods))
 
         # Visualizations
         st.subheader("Forecast Plot")
@@ -233,6 +232,7 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to get started.")
+
 
 
 
